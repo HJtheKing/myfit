@@ -61,7 +61,7 @@
 
 5. REST API를 실행합니다.
    ```
-    run SSAFIT
+    run MYFIT
    ```
 
 6. YOUTUBE API 키를 작성합니다.
@@ -70,7 +70,7 @@
     ```
     AIzaSyAX4oR97pbfb6S--j20qsCbKmAiJ2rq-qU
 
-7. SSAFIT-PROJECT를 실행합니다.
+7. MYFIT-PROJECT를 실행합니다.
    ```bash
     npm run dev
    ```
