@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+:root{
+    /* 색상 지정 */
+    --main-color: #4285F0;
+    --action-color: #7CBBF3;
+    --background-color: #FFFFFF;
+    --overback-color: #ECECEC;
+    --surface-color: #BDBDBD;
+
+    /* font preset (크기-글꼴) */
+    --xxl-pre-font: 800 24px/28px Pretendard;
+    --xl-pre-font: 700 22px/28px Pretendard;
+    --lg-pre-font: 600 18px/28px Pretendard;
+    --base-pre-font: 500 16px/24px Pretendard;
+    --sm-pre-font: 400 14px/20px Pretendard;
+    --xs-pre-font: 400 12px/14px Pretendard;
+    --xxs-pre-font: 300 10px/12px Pretendard;
+
+      /* gap, radius 변수 지정 */
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 16px;
+    --spacing-5: 20px;
+    --spacing-6: 24px;
+    --spacing-7: 28px;
+    --spacing-8: 32px;
+    --spacing-9: 36px;
+    --spacing-10: 40px;
+    --spacing-11: 44px;
+    --spacing-12: 48px;
+}
+
+/* 전체 스크롤바 */
+::-webkit-scrollbar {
+  width: 5px; /* 가로 스크롤바의 높이 */
+  height: 5px; /* 세로 스크롤바의 넓이 */
+}
+
+/* 스크롤바의 트랙 */
+::-webkit-scrollbar-track {
+  background: #ffffff; /* 트랙 배경색 */
+}
+
+/* 스크롤바 핸들 */
+::-webkit-scrollbar-thumb {
+  background: #ffffff; /* 핸들 배경색 */
+  border-radius: 2px; /* 핸들 모서리 반경 */
+  max-height: 10px;
+}
+
+/* 스크롤바 핸들에 호버했을 때 */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--action-color); /* 호버 시 핸들 배경색 */
+}

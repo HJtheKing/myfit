@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.chj.myfit.model.dao.VideoDao">
+    <select id="selectAll" resultType="Video">
+        SELECT * FROM video
+    </select>
+    
+    <select id="selectById" parameterType="int" resultType="Video">
+        SELECT * FROM video
+        WHERE video_id = #{id}
+    </select>
+    
+    <update id="plusViewCnt" parameterType="int">
+        UPDATE video SET view_cnt = view_cnt + 1
+        WHERE video_id = #{id}
+    </update>
+    
+    <select id="selectByCondition" parameterType="SearchCondition" resultType="Video">
+        SELECT * FROM video
+        <!-- 동적쿼리(검색 조건) -->
+		<if test="key != 'none'">
+			WHERE ${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<!-- 동적쿼리(정렬 조건) -->
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+    </select>
+    
+    <insert id="insertVideo" parameterType="Video">
+        INSERT INTO video (title, channel_name, exercise_area, youtube_id) VALUES
+        (#{title}, #{channelName}, #{exerciseArea}, #{youtubeId})
+    </insert>
+    
+    <update id="updateVideo" parameterType="Video">
+        UPDATE video SET
+        <trim suffixOverrides=",">
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="youtubeId != null">
+                youtube_id = #{youtubeId},
+            </if>
+        </trim>
+        WHERE video_id = #{id}
+    </update>
+    
+    <insert id="insertLike" parameterType="Like">
+        <!-- 수정한 부분: user_id를 member_id로 변경 -->
+        INSERT INTO like_data (member_id, video_id)
+        VALUES (#{memberId}, #{videoId})
+    </insert>
+    
+    <select id="selectLikeMemberByVideoId" parameterType="int" resultType="Member">
+        <!-- 수정한 부분: user_id를 member_id로 변경 -->
+        SELECT m.member_id, m.name
+        FROM member m, like_data l
+        WHERE m.member_id = l.member_id AND l.video_id = #{videoId}
+    </select>
+    
+    <delete id="deleteLike" parameterType="int">
+        <!-- 수정한 부분: user_id를 member_id로 변경 -->
+        DELETE FROM like_data WHERE member_id = #{memberId} AND video_id = #{videoId}
+    </delete>
+    
+    <update id="plusLikeCnt" parameterType="int">
+		UPDATE video SET like_cnt = like_cnt + 1
+        WHERE video_id = #{id}
+	</update>
+	<update id="minusLikeCnt" parameterType="int">
+		UPDATE video SET like_cnt = like_cnt - 1
+        WHERE video_id = #{id}
+	</update>
+</mapper>

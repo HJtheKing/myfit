@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: myfit
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myfit?serverTimezone=UTC
+
+  config:
+    import: optional:classpath:application-local.yml
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: true
+        format_sql : true
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.chj.myfit.model.dto
+  configuration:
+    map-underscore-to-camel-case: true

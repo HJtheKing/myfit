@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chj.myfit.model.dao.PostDao">
+    <select id="selectAll" resultType="Post">
+        SELECT * , m.name AS writer FROM post
+        LEFT JOIN member m ON post.member_id = m.member_id
+    </select>
+    
+    <select id="searchByMemberId" parameterType="int" resultType="Post">
+        SELECT *
+        FROM post
+        WHERE member_id = #{memberId}
+    </select>
+    
+    <select id="searchByVideoId" parameterType="int" resultType="Post">
+        SELECT *
+        FROM post
+        WHERE video_id = #{videoId}
+    </select>
+    
+    <select id="searchById" resultType="Post" parameterType="int">
+        SELECT * , m.name AS writer FROM post
+        LEFT JOIN member m ON post.member_id = m.member_id
+        WHERE post_id = #{postId}
+    </select>
+    
+    <insert id="insertPost" parameterType="Post">
+        INSERT INTO post (video_id, member_id, title, content)
+        VALUES (#{videoId}, #{memberId}, #{title}, #{content})
+    </insert>
+    
+    <update id="updatePost" parameterType="Post">
+        UPDATE post
+        SET title = #{title}, content = #{content}, img_src1 = #{imgSrc1}, img_src2 = #{imgSrc2}, img_src3 = #{imgSrc3}
+        WHERE post_id = #{postId}
+    </update>
+    
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM post
+        WHERE post_id = #{postId}
+    </delete>
+    
+    <insert id="insertFile" parameterType="Post">
+ 	    INSERT INTO post (video_id, member_id, title, content, img_src1, img_src2, img_src3)
+        VALUES (#{videoId}, #{memberId}, #{title}, #{content}, #{imgSrc1}, #{imgSrc2}, #{imgSrc3})
+    </insert>
+</mapper>

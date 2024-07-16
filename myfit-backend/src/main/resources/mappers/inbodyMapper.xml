@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.chj.myfit.model.dao.InbodyDao">
+	<insert id="insertInbody" parameterType="Inbody">
+		INSERT INTO inbody_data
+		VALUES(0, #{memberId}, #{height}, #{age}, #{gender}, #{bodyFatMass}, #{weight}, #{skeletalMuscleMass}, #{idealWeight}, #{weightControl}, #{fatControl}, #{muscleControl}, #{basalMetabolicRate}, #{recommendedIntakeCalories}, #{leftArmMuscle}, #{rightArmMuscle}, #{trunkMuscle}, #{leftLegMuscle}, #{rightLegMuscle}, #{leftArmFat}, #{rightArmFat}, #{trunkFat}, #{leftLegFat}, #{rightLegFat}, #{measurementDate})
+	</insert>
+	
+	<select id="searchByMemberId" parameterType="int" resultType="Inbody">
+		SELECT * FROM inbody_data
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<select id="selectAll" resultType="Inbody">
+		SELECT * FROM inbody_data
+	</select>
+	
+	<select id="searchById" parameterType="int" resultType="Inbody">
+		SELECT * FROM inbody_data
+		WHERE inbody_id = #{id}
+	</select>
+	
+	<update id="updateInbody" parameterType="Inbody">
+		UPDATE inbody_data
+		SET height = #{height}, age = #{age}, gender = #{gender}, body_fat_mass = #{bodyFatMass}, weight = #{weight}, skeletal_muscle_mass = #{skeletalMuscleMass}, ideal_weight = #{idealWeight}, weight_control = #{weightControl}, fat_control = #{fatControl}, muscle_control = #{muscleControl}, basal_metabolic_rate = #{basalMetabolicRate}, recommended_intake_calories = #{recommendedIntakeCalories}, left_arm_muscle = #{leftArmMuscle}, right_arm_muscle = #{rightArmMuscle}, trunk_muscle = #{trunkMuscle}, left_leg_muscle = #{leftLegMuscle}, right_leg_muscle = #{rightLegMuscle}, left_arm_fat = #{leftArmFat}, right_arm_fat = #{rightArmFat}, trunk_fat = #{trunkFat}, left_leg_fat = #{leftLegFat}, right_leg_fat = #{rightLegFat}, measurement_date = #{measurementDate}
+		WHERE inbody_id = #{inbodyId}
+	</update>
+	
+	<delete id="deleteInbody" parameterType="int">
+		DELETE FROM inbody_data
+		WHERE inbody_id = #{id}
+	</delete>
+	
+	<delete id="deletePreferredExerciseAreaByMemberId" parameterType="int">
+		DELETE FROM preferred_exercise_area
+		WHERE member_id = #{memberId}
+	</delete>
+	
+	<insert id="insertPreferredExerciseArea" parameterType="map">
+		INSERT INTO preferred_exercise_area
+		VALUES(0, #{memberId}, #{exerciseArea})
+	</insert>
+	<select id="findPreferredExerciseAreaByMemberId" resultType="string" parameterType="int">
+		SELECT exercise_area
+		FROM preferred_exercise_area
+		WHERE member_id = #{memberId}
+	</select>
+	
+</mapper>

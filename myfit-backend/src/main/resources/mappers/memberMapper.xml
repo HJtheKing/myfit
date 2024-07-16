@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chj.myfit.model.dao.MemberDao">
+    <!-- SELECT -->
+    <select id="selectAll" resultType="Member">
+        SELECT member_id, email, password, alternate_email, name, birth_date, phone, signup_date, role
+        FROM member
+    </select>
+    
+    <select id="searchById" parameterType="int" resultType="Member">
+        SELECT member_id, email, password, alternate_email, name, birth_date, phone, signup_date, role
+        FROM member
+        WHERE member_id = #{id}
+    </select>
+    
+    <select id="searchByCondition" parameterType="SearchCondition" resultType="Member">
+        SELECT *
+        FROM member
+        <if test="key != null">
+            WHERE ${key} LIKE concat('%', #{word} ,'%')
+        </if>
+        <if test="orderBy != null">
+            ORDER BY ${orderBy} ${orderByDir}
+        </if>
+    </select>
+    
+    <select id="selectOne" parameterType="Map" resultType="Member">
+        SELECT member_id, email
+        FROM member
+        WHERE email = #{email} AND password = #{password}
+    </select>
+    
+    <select id="selectByEmail" parameterType="String" resultType="Member">
+        SELECT *
+        FROM member
+        WHERE email = #{email}
+    </select>
+    
+    <!-- INSERT -->
+    <insert id="insertMember" parameterType="Member">
+        INSERT INTO member (email, password, alternate_email, name, birth_date, phone)
+        VALUES(#{email}, #{password}, #{alternateEmail}, #{name}, #{birthDate}, #{phone})
+    </insert>
+    
+    <!-- DELETE -->
+    <delete id="deleteMember" parameterType="int">
+        DELETE FROM member
+        WHERE member_id = #{id}
+    </delete>
+    
+    <!-- UPDATE -->
+    <update id="updateMember" parameterType="Member">
+        UPDATE member
+        SET
+        password = #{password}, alternate_email = #{alternateEmail}, name = #{name}, phone = #{phone}
+        WHERE member_id = #{memberId}
+    </update>
+    
+     <select id="selectAllDiet" resultType="Diet">
+        SELECT * FROM diet
+    </select>
+    
+    <!-- INSERT -->
+    <insert id="insertDiet" parameterType="Diet">
+        INSERT INTO diet (member_id, purpose, allergie, past_meal, food_list, calories, meal_time)
+        VALUES(#{memberId}, #{purpose}, #{allergie}, #{pastMeal}, #{foodList}, #{calories}, #{mealTime})
+    </insert>
+    
+    <!-- DELETE -->
+    <delete id="deleteDiet" parameterType="int">
+        DELETE FROM diet
+        WHERE diet_id = #{dietId}
+    </delete>
+</mapper>

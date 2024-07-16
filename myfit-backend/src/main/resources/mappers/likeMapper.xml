@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.chj.myfit.model.dao.LikeDao">
+	<select id="selectAll" resultType="Like">
+		SELECT * FROM like_data
+	</select>
+	
+	<select id="searchByMemberId" parameterType="int" resultType="Like">
+		SELECT video_id FROM like_data
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<select id="findMemberIdByVideoId" parameterType="int" resultType="Integer">
+		SELECT member_id FROM like_data
+		WHERE video_id = #{videoId}
+	</select>
+	
+	<select id="searchById" parameterType="int" resultType="Like">
+		SELECT * FROM like_data
+		WHERE like_id = #{id}
+	</select>
+
+	<insert id="insertLike" parameterType="Like">
+		INSERT INTO like_data (member_id, video_id)
+		VALUES (#{memberId}, #{videoId})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="int">
+		DELETE FROM like_data
+		WHERE like_id = #{id}
+	</delete>
+</mapper>
